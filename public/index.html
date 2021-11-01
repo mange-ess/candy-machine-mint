@@ -15,6 +15,10 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <!--<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -25,12 +29,24 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>MangeS NFT</title>
+    <style>
+      html, h1, h2, h3, h4, h5, h6, p, span { font-family: 'Ubuntu' !important;}
+      body {font-family: 'Ubuntu' !important; width: 100vw !important;}
+      #sectionsContainer {padding-left: 0 !important; padding-right: 0 !important;}
+      .MuiGrid-root {margin-left: unset !important; margin-right: unset !important;}
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+        $( function() {
+            $( ".ui-draggable-handle" ).draggable();
+        } );
+    </script>
   </body>
 </html>
+
 
 
 

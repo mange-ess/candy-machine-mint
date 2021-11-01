@@ -1,6 +1,8 @@
 import "./App.css";
 import { useMemo } from "react";
 
+import env from "react-dotenv";
+
 import Home from "./Home";
 
 import * as anchor from "@project-serum/anchor";
