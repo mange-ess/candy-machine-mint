@@ -22,6 +22,10 @@ import {
 import { WalletDialogProvider } from "@solana/wallet-adapter-material-ui";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 
+import AboutUsPage from "./views/AboutUsPage/AboutUsPage.js";
+import { createBrowserHistory } from "history";
+import { Router, Route, Switch } from "react-router";
+
 const treasury = new anchor.web3.PublicKey(
   process.env.REACT_APP_TREASURY_ADDRESS!
 );
@@ -68,6 +72,8 @@ const theme = createTheme({
     },
 });
 
+var hist = createBrowserHistory();
+
 const App = () => {
   const endpoint = useMemo(() => clusterApiUrl(network), []);
 
@@ -83,23 +89,32 @@ const App = () => {
   );
 
   return (
-      <ThemeProvider theme={theme}>
-        <ConnectionProvider endpoint={endpoint}>
-          <WalletProvider wallets={wallets} autoConnect={true}>
-            <WalletDialogProvider>
-              <Home
-                candyMachineId={candyMachineId}
-                config={config}
-                connection={connection}
-                startDate={startDateSeed}
-                treasury={treasury}
-                txTimeout={txTimeout}
-              />
-            </WalletDialogProvider>
-          </WalletProvider>
-        </ConnectionProvider>
-      </ThemeProvider>
+      <Router history={hist}>
+            <Switch>
+                <Route path="/">
+                    <ThemeProvider theme={theme}>
+                        <ConnectionProvider endpoint={endpoint}>
+                            <WalletProvider wallets={wallets} autoConnect={true}>
+                                <WalletDialogProvider>
+                                    <Home
+                                        candyMachineId={candyMachineId}
+                                        config={config}
+                                        connection={connection}
+                                        startDate={startDateSeed}
+                                        treasury={treasury}
+                                        txTimeout={txTimeout}
+                                    />
+                                </WalletDialogProvider>
+                            </WalletProvider>
+                        </ConnectionProvider>
+                    </ThemeProvider>
+                    <AboutUsPage/>
+
+                </Route>
+            </Switch>
+        </Router>
   );
 };
 
 export default App;
+
