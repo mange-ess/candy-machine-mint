@@ -13,6 +13,9 @@ import { WalletDialogButton } from "@solana/wallet-adapter-material-ui";
 
 import './assets/scss/wallet.scss';
 
+import App from "./App";
+
+
 import {
   CandyMachine,
   awaitTransactionSignatureConfirmation,
@@ -59,6 +62,7 @@ const Home = (props: HomeProps) => {
   const wallet = useAnchorWallet();
   const [candyMachine, setCandyMachine] = useState<CandyMachine>();
 
+
   const refreshCandyMachineState = () => {
     (async () => {
       if (!wallet) return;
@@ -82,6 +86,8 @@ const Home = (props: HomeProps) => {
       setIsSoldOut(itemsRemaining === 0);
       setStartDate(goLiveDate);
       setCandyMachine(candyMachine);
+
+      props.availableCounter.counter = itemsRedeemed;
     })();
   };
 

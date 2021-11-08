@@ -24,9 +24,11 @@ import {
 import { WalletDialogProvider } from "@solana/wallet-adapter-material-ui";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 
-import AboutUsPage from "./views/AboutUsPage/AboutUsPage.js";
+import AboutUsPage from "./views/AboutUsPage/AboutUsPage";
 import { createBrowserHistory } from "history";
-import { Router, Route, Switch } from "react-router";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import FinnAssetPage from "./views/FinnAssetPage/FinnAssetPage.js";
 
 const treasury = new anchor.web3.PublicKey(
   process.env.REACT_APP_TREASURY_ADDRESS!
@@ -76,6 +78,11 @@ const theme = createTheme({
 
 var hist = createBrowserHistory();
 
+let AvailableItemsCount = {counter: 0};
+
+
+
+
 const App = () => {
   const endpoint = useMemo(() => clusterApiUrl(network), []);
 
@@ -91,14 +98,15 @@ const App = () => {
   );
 
   return (
-      <Router history={hist}>
+      <Router>
             <Switch>
-                <Route path="/">
+                <Route exact path="/">
                     <ThemeProvider theme={theme}>
                         <ConnectionProvider endpoint={endpoint}>
                             <WalletProvider wallets={wallets} autoConnect={true}>
                                 <WalletDialogProvider>
                                     <Home
+                                        availableCounter={AvailableItemsCount}
                                         candyMachineId={candyMachineId}
                                         config={config}
                                         connection={connection}
@@ -110,9 +118,13 @@ const App = () => {
                             </WalletProvider>
                         </ConnectionProvider>
                     </ThemeProvider>
-                    <AboutUsPage/>
-
+                    <AboutUsPage availableCounter={AvailableItemsCount}/>
                 </Route>
+                <Route path="/finn/:uuid" component={FinnAssetPage}></Route>
+                <Route path="/*">
+                    <div><p>Does not exist.</p></div>
+                </Route>
+
             </Switch>
         </Router>
   );
